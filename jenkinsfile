@@ -1,0 +1,25 @@
+node('master') 
+{
+    stage('ContinuousDownload') 
+    {
+        git 'https://github.com/selenium-saikrishna/maven.git'
+    }
+    stage('ContinuousBuild') 
+    {
+        sh 'mvn package'
+    }
+    stage('ContinuousDeployment') 
+    {
+        sh 'scp /root/.jenkins/workspace/scriptedpipeline/webapp/target/webapp.war ubuntu@172.31.60.147:/var/lib/tomcat8/webapps/testenv.war'
+    }
+    stage('ContinuousTesting')
+    {
+        git 'https://github.com/shivaramyadav/testing.git'
+        sh 'java -jar /root/.jenkins/workspace/scriptedpipeline/testing.jar'
+    }
+    stage('ContinuousDelivery') 
+    {
+        input message: 'Waiting for approval of DM', submitter: 'sharada'
+        sh 'scp /root/.jenkins/workspace/scriptedpipeline/webapp/target/webapp.war ubuntu@172.31.63.233:/var/lib/tomcat8/webapps/prodenv.war'
+    }
+}
