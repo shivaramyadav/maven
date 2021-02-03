@@ -3,7 +3,7 @@ pipeline
     agent any
     stages
     {
-        stage('ContDownload') 
+        stage('ContinuosDownload') 
         {
             steps
             {
@@ -21,7 +21,7 @@ pipeline
                 }
             }
         }
-        stage('ContBuild')
+        stage('ContinuosBuild')
         {
             steps
             {
@@ -39,7 +39,7 @@ pipeline
                 }
             }
         }
-        stage('ContDeployment')
+        stage('ContinuosDeployment')
         {
             steps
             {
@@ -57,7 +57,7 @@ pipeline
                 }
             }
         }
-        stage('ContTesting')
+        stage('ContinuosTesting')
         {
             steps
             {
@@ -76,7 +76,7 @@ pipeline
                 }
             }
         }
-        stage('ContDelivery')
+        stage('ContinousDelivery')
         {
             steps
             {
